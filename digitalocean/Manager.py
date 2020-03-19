@@ -31,7 +31,7 @@ class Manager(BaseAPI):
         """
             Returns an Account object.
         """
-        return Account.get_object(api_token=self.token)
+        return Account.get_object(api_token=self.tokens)
 
     def get_all_regions(self):
         """
@@ -89,7 +89,7 @@ class Manager(BaseAPI):
         """
             Return a Droplet by its ID.
         """
-        return Droplet.get_object(api_token=self.token, droplet_id=droplet_id)
+        return Droplet.get_object(api_token=self.tokens, droplet_id=droplet_id)
 
     def get_all_sizes(self):
         """
@@ -133,7 +133,7 @@ class Manager(BaseAPI):
             Return a Image by its ID/Slug.
         """
         return Image.get_object(
-            api_token=self.token,
+            api_token=self.tokens,
             image_id_or_slug=image_id_or_slug,
         )
 
@@ -191,7 +191,7 @@ class Manager(BaseAPI):
         """
             Return a Domain by its domain_name
         """
-        return Domain.get_object(api_token=self.token, domain_name=domain_name)
+        return Domain.get_object(api_token=self.tokens, domain_name=domain_name)
 
     def get_all_sshkeys(self):
         """
@@ -209,7 +209,7 @@ class Manager(BaseAPI):
         """
             Return a SSHKey object by its ID.
         """
-        return SSHKey.get_object(api_token=self.token, ssh_key_id=ssh_key_id)
+        return SSHKey.get_object(api_token=self.tokens, ssh_key_id=ssh_key_id)
 
     def get_all_tags(self):
         """
@@ -224,7 +224,7 @@ class Manager(BaseAPI):
         """
             Return an Action object by a specific ID.
         """
-        return Action.get_object(api_token=self.token, action_id=action_id)
+        return Action.get_object(api_token=self.tokens, action_id=action_id)
 
     def get_all_floating_ips(self):
         """
@@ -242,7 +242,7 @@ class Manager(BaseAPI):
         """
             Returns a of FloatingIP object by its IP address.
         """
-        return FloatingIP.get_object(api_token=self.token, ip=ip)
+        return FloatingIP.get_object(api_token=self.tokens, ip=ip)
 
     def get_all_load_balancers(self):
         """
@@ -270,7 +270,7 @@ class Manager(BaseAPI):
             Args:
                 id (str): Load Balancer ID
         """
-        return LoadBalancer.get_object(api_token=self.token, id=id)
+        return LoadBalancer.get_object(api_token=self.tokens, id=id)
 
     def get_certificate(self, id):
         """
@@ -279,7 +279,7 @@ class Manager(BaseAPI):
             Args:
                 id (str): Certificate ID
         """
-        return Certificate.get_object(api_token=self.token, cert_id=id)
+        return Certificate.get_object(api_token=self.tokens, cert_id=id)
 
     def get_all_certificates(self):
         """
@@ -299,7 +299,7 @@ class Manager(BaseAPI):
             Return a Snapshot by its ID.
         """
         return Snapshot.get_object(
-            api_token=self.token, snapshot_id=snapshot_id
+            api_token=self.tokens, snapshot_id=snapshot_id
         )
 
     def get_all_snapshots(self):
@@ -352,7 +352,7 @@ class Manager(BaseAPI):
         """
             Returns a Volume object by its ID.
         """
-        return Volume.get_object(api_token=self.token, volume_id=volume_id)
+        return Volume.get_object(api_token=self.tokens, volume_id=volume_id)
 
     def get_all_firewalls(self):
         """
@@ -379,7 +379,7 @@ class Manager(BaseAPI):
             Return a Firewall by its ID.
         """
         return Firewall.get_object(
-            api_token=self.token,
+            api_token=self.tokens,
             firewall_id=firewall_id,
         )
 
