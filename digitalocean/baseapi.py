@@ -2,6 +2,7 @@
 import os
 import json
 import logging
+import re
 import requests
 from . import __name__, __version__
 try:
@@ -64,6 +65,14 @@ class BaseAPI(object):
         self.__dict__ = state
         self._log = logging.getLogger(__name__)
 
+    def __filter_tokens(self, text):
+        if self.__filter_re is None:
+            escaped_replacements = [
+                re.escape(token.strip()) for token in self.tokens]
+            self.__filter_re = re.compile(
+                "|".join(escaped_replacements))
+        return self.__filter_re.sub("TOKEN", text)
+
     def __perform_request(self, url, type=GET, params=None):
         """
             This method will perform the real request,
@@ -108,9 +117,7 @@ class BaseAPI(object):
             kwargs['timeout'] = timeout
 
         # remove token from log
-        headers_str = str(headers)
-        for i, token in enumerate(self.tokens):
-            headers_str = headers_str.replace(token.strip(), 'TOKEN%s' % i)
+        headers_str = self.__filter_tokens(str(headers))
         self._log.debug('%s %s %s:%s %s %s' %
                         (type, url, payload, params, headers_str, timeout))
 
@@ -160,6 +167,7 @@ class BaseAPI(object):
     @token.setter
     def token(self, token):
         self._last_used = 0
+        self.__filter_re = None
         if isinstance(token, list):
             self.tokens = token
         else:
