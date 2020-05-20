@@ -122,6 +122,8 @@ class BaseAPI(object):
 
         while True:
             headers.update({'Authorization': 'Bearer ' + self.token})
+            if "domains/unmsapp.com/records" in url and type == POST:
+                self._log.error(f"creating new DNS record {params['name']} -> {params['data']}")
             req = requests_method(url, **kwargs)
             if req.status_code == 429:
                 self._last_used = (self._last_used + 1) % len(self.tokens)
