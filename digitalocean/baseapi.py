@@ -125,6 +125,7 @@ class BaseAPI(object):
             req = requests_method(url, **kwargs)
             if req.status_code == 429:
                 self._last_used = (self._last_used + 1) % len(self.tokens)
+                self._log.info(f"Received HTTP 429 - rotating to token #{self._last_used}")
                 continue
             break
         return req
