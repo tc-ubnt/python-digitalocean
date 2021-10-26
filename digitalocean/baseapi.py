@@ -120,12 +120,16 @@ class BaseAPI(object):
         self._log.debug('%s %s %s:%s %s %s' %
                         (type, url, payload, params, headers_str, timeout))
 
+        first_tried_token = self._last_used
         while True:
             headers.update({'Authorization': 'Bearer ' + self.token})
             req = requests_method(url, **kwargs)
             if req.status_code == 429:
                 self._last_used = (self._last_used + 1) % len(self.tokens)
                 self._log.info(f"Received HTTP 429 - rotating to token #{self._last_used}")
+                if self._last_used == first_tried_token:
+                    # all tokens tried
+                    break
                 continue
             break
         return req
